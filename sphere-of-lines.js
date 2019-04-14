@@ -85,7 +85,7 @@ function getRandomPointInSphere() {
     let u = Math.random();
     let v = Math.random();
     let theta = u * 2.0 * Math.PI;
-    let phi = Math.acos(2.0 * v - 1.0);
+    let phi = Math.acos( 2.0 * v - 1.0 );
     let r = Math.cbrt( Math.random() );
     let sinTheta = Math.sin( theta );
     let cosTheta = Math.cos( theta );
@@ -137,9 +137,9 @@ function moveCamera() {
     target.x = ( 1 - mouse.x ) * MOUSE_SENSITIVITY;
     target.y = ( 1 - mouse.y ) * MOUSE_SENSITIVITY;
 
-    camera.rotation.x += MOUSE_SENSITIVITY * ( target.y - camera.rotation.x);
-    camera.rotation.y += MOUSE_SENSITIVITY * ( target.x - camera.rotation.y);
-    camera.getWorldDirection(lookDirection);
+    camera.rotation.x += MOUSE_SENSITIVITY * ( target.y - camera.rotation.x );
+    camera.rotation.y += MOUSE_SENSITIVITY * ( target.x - camera.rotation.y );
+    camera.getWorldDirection( lookDirection );
     camera.position.x -= lookDirection.x * velocity;
     camera.position.y -= lookDirection.y * velocity;
     camera.position.z -= lookDirection.z * velocity;
