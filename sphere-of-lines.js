@@ -50,7 +50,6 @@ function setScene() {
 
 function setCamera() {
     camera = new THREE.PerspectiveCamera( FOV, width/height, 0.01, 1000 );
-    camera.aspect = width / height;
     camera.updateProjectionMatrix();
 
     // Move camera to initial position in front of space where lines are about to be drawn.
@@ -75,9 +74,8 @@ function drawLines() {
         geometry.vertices.push( new THREE.Vector3( points[ i ].x, points[ i ].y, points[ i ].z) );
         geometry.vertices.push( new THREE.Vector3( points[ i + 1 ].x, points[ i + 1 ].y, points[ i + 1 ].z) );
      
-        let line = new THREE.Line( geometry, new THREE.LineBasicMaterial() );
-        line.material.color = new THREE.Color( LINE_COLOR );         
-      
+        let line = new THREE.Line( geometry, new THREE.LineBasicMaterial({ color:LINE_COLOR }) );
+
         lines.push( line )
         scene.add( line );
     }
@@ -130,6 +128,12 @@ function onResize() {
 }
 
 function animate() {
+    moveCamera();
+    renderer.render( scene, camera );
+    requestAnimationFrame( animate );        
+}
+
+function moveCamera() {
     target.x = ( 1 - mouse.x ) * MOUSE_SENSITIVITY;
     target.y = ( 1 - mouse.y ) * MOUSE_SENSITIVITY;
 
@@ -139,8 +143,4 @@ function animate() {
     camera.position.x -= lookDirection.x * velocity;
     camera.position.y -= lookDirection.y * velocity;
     camera.position.z -= lookDirection.z * velocity;
-
-    renderer.render( scene, camera );
-
-    requestAnimationFrame( animate );        
 }
